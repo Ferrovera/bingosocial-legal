@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — BingoSocial</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple: #534AB7;
+      --purple-light: #EAE8F8;
+      --amber: #EF9F27;
+      --green: #1D9E75;
+      --dark: #16102E;
+      --mid: #4A4468;
+      --muted: #8880AA;
+      --bg: #FAFAFA;
+      --card: #FFFFFF;
+      --border: #E8E5F5;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.75; font-size: 16px; }
+
+    header {
+      background: var(--purple);
+      padding: 48px 24px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.07) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(239,159,39,0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .header-bingo { display: inline-flex; gap: 6px; margin-bottom: 20px; }
+    .bingo-cell {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif; font-size: 13px; color: white;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    .bingo-cell:nth-child(1) { background: rgba(255,255,255,0.15); animation-delay: 0.05s; }
+    .bingo-cell:nth-child(2) { background: rgba(255,255,255,0.12); animation-delay: 0.1s; }
+    .bingo-cell:nth-child(3) { background: var(--amber); border-color: var(--amber); animation-delay: 0.15s; }
+    .bingo-cell:nth-child(4) { background: rgba(255,255,255,0.12); animation-delay: 0.2s; }
+    .bingo-cell:nth-child(5) { background: rgba(255,255,255,0.15); animation-delay: 0.25s; }
+    @keyframes popIn { from { opacity:0; transform:scale(0.6); } to { opacity:1; transform:scale(1); } }
+
+    header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(32px,6vw,48px); color: white; letter-spacing: -0.5px; margin-bottom: 6px; }
+    header .subtitle { font-size: 15px; color: rgba(255,255,255,0.7); font-weight: 300; letter-spacing: 0.5px; text-transform: uppercase; }
+
+    .container { max-width: 740px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* Nav pills */
+    .nav { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+    .nav a {
+      display: inline-block; padding: 8px 18px; border-radius: 100px;
+      font-size: 14px; font-weight: 500; text-decoration: none;
+      background: var(--purple-light); color: var(--purple);
+      border: 1px solid var(--border); transition: background 0.15s;
+    }
+    .nav a:hover, .nav a.active { background: var(--purple); color: white; border-color: var(--purple); }
+
+    /* Cards */
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px 32px; margin-bottom: 20px;
+    }
+    .card-icon { font-size: 28px; margin-bottom: 12px; }
+    .card h2 { font-family: 'DM Serif Display', serif; font-size: 22px; font-weight: 400; color: var(--dark); margin-bottom: 10px; }
+    .card p { font-size: 15px; color: var(--mid); margin-bottom: 12px; }
+    .card p:last-child { margin-bottom: 0; }
+
+    /* Email CTA */
+    .email-cta {
+      background: var(--dark); border-radius: 16px;
+      padding: 32px; text-align: center; margin-bottom: 20px;
+    }
+    .email-cta h2 { font-family: 'DM Serif Display', serif; font-size: 26px; font-weight: 400; color: white; margin-bottom: 8px; }
+    .email-cta p { font-size: 15px; color: rgba(255,255,255,0.6); margin-bottom: 20px; }
+    .email-btn {
+      display: inline-block; background: var(--amber); color: var(--dark);
+      font-weight: 700; font-size: 15px; padding: 14px 32px;
+      border-radius: 100px; text-decoration: none; transition: opacity 0.15s;
+    }
+    .email-btn:hover { opacity: 0.9; border-bottom: none; }
+
+    /* FAQ */
+    .faq { margin-bottom: 40px; }
+    .faq-title { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: var(--dark); margin-bottom: 20px; }
+    details {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; margin-bottom: 10px; overflow: hidden;
+    }
+    summary {
+      padding: 18px 20px; font-size: 15px; font-weight: 600;
+      color: var(--dark); cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; font-size: 20px; color: var(--purple); font-weight: 300; }
+    details[open] summary::after { content: '−'; }
+    details[open] summary { color: var(--purple); border-bottom: 1px solid var(--border); }
+    .faq-body { padding: 16px 20px; font-size: 15px; color: var(--mid); line-height: 1.7; }
+
+    /* Privacy link */
+    .privacy-link {
+      background: var(--purple-light); border-radius: 12px;
+      padding: 20px 24px; display: flex; align-items: center; gap: 16px;
+      text-decoration: none; border: 1px solid var(--border); margin-bottom: 20px;
+      transition: border-color 0.15s;
+    }
+    .privacy-link:hover { border-color: var(--purple); }
+    .privacy-link .icon { font-size: 24px; flex-shrink: 0; }
+    .privacy-link .text-block .label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+    .privacy-link .text-block .title { font-size: 16px; font-weight: 600; color: var(--purple); }
+
+    a { color: var(--purple); }
+    footer { text-align: center; padding: 32px 24px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+    footer .dot { color: var(--purple); margin: 0 8px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-bingo">
+    <div class="bingo-cell">B</div>
+    <div class="bingo-cell">I</div>
+    <div class="bingo-cell">N</div>
+    <div class="bingo-cell">G</div>
+    <div class="bingo-cell">O</div>
+  </div>
+  <h1>BingoSocial</h1>
+  <div class="subtitle">Support &amp; Help</div>
+</header>
+
+<div class="container">
+
+  <nav class="nav">
+    <a href="#contact" class="active">Contact</a>
+    <a href="#faq">FAQ</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+  </nav>
+
+  <!-- Contact -->
+  <div id="contact" class="email-cta">
+    <h2>Get in touch</h2>
+    <p>Have a question, found a bug, or need help with your account?<br>We'll get back to you as soon as possible.</p>
+    <a href="mailto:ferroveraint@gmail.com" class="email-btn">📧 ferroveraint@gmail.com</a>
+  </div>
+
+  <!-- What to include -->
+  <div class="card">
+    <div class="card-icon">📋</div>
+    <h2>When contacting support, please include:</h2>
+    <p>• Your username or email address registered in BingoSocial</p>
+    <p>• A description of the issue you're experiencing</p>
+    <p>• Your device type and iOS/Android version</p>
+    <p>• Any screenshots that might help explain the issue</p>
+  </div>
+
+  <!-- Account deletion -->
+  <div class="card">
+    <div class="card-icon">🗑️</div>
+    <h2>Delete your account</h2>
+    <p>You can delete your account directly from the app by going to <strong>Profile → Delete Account</strong>. This will permanently remove your profile, bingo cards, and all associated data within 30 days.</p>
+    <p>Alternatively, email us at <a href="mailto:ferroveraint@gmail.com">ferroveraint@gmail.com</a> with the subject line <strong>"Account Deletion Request"</strong> and we'll process it manually.</p>
+  </div>
+
+  <!-- FAQ -->
+  <div id="faq" class="faq">
+    <div class="faq-title">Frequently Asked Questions</div>
+
+    <details>
+      <summary>How do I start a new bingo group?</summary>
+      <div class="faq-body">Tap the purple + button on the Home screen. Give your group a name, pick an emoji or photo, then invite your friends. Once everyone has locked in their cards, you can start the game and set an end date.</div>
+    </details>
+
+    <details>
+      <summary>Can I change my bingo card after locking in?</summary>
+      <div class="faq-body">No — once you tap "Lock in", your card is set for the duration of the game. This keeps things fair for everyone in the group. Make sure you're happy with your squares before locking in!</div>
+    </details>
+
+    <details>
+      <summary>How does scoring work?</summary>
+      <div class="faq-body">Your score is calculated as: bingos × 100 + total squares marked. Bingos are worth the most, with squares marked acting as a tiebreaker. The leaderboard updates in real time as players mark off squares.</div>
+    </details>
+
+    <details>
+      <summary>What is the FREE SPACE?</summary>
+      <div class="faq-body">The centre square on every bingo card is a FREE SPACE — it counts as already marked for everyone. This helps complete diagonal bingos and gives every player a head start.</div>
+    </details>
+
+    <details>
+      <summary>How do I remove ads?</summary>
+      <div class="faq-body">You can remove ads with a one-time in-app purchase available in the app. Go to Profile → Remove Ads to unlock an ad-free experience permanently.</div>
+    </details>
+
+    <details>
+      <summary>Why can't I see my friend's card?</summary>
+      <div class="faq-body">Cards are only visible once the game has started (all players locked in and admin has tapped Start Game). During the Draft phase, cards are private to keep things fun and competitive.</div>
+    </details>
+
+    <details>
+      <summary>How do I report inappropriate content?</summary>
+      <div class="faq-body">All uploaded photos are automatically scanned for inappropriate content before being saved. If you encounter anything that seems inappropriate, please email us at <a href="mailto:ferroveraint@gmail.com">ferroveraint@gmail.com</a> and we'll investigate immediately.</div>
+    </details>
+
+    <details>
+      <summary>Can I play BingoSocial across iOS and Android?</summary>
+      <div class="faq-body">Yes — BingoSocial works across both iOS and Android. Players on different devices can be in the same group with no issues.</div>
+    </details>
+  </div>
+
+  <!-- Privacy Policy link -->
+  <a href="privacy-policy.html" class="privacy-link">
+    <div class="icon">🔒</div>
+    <div class="text-block">
+      <div class="label">Legal</div>
+      <div class="title">Read our Privacy Policy →</div>
+    </div>
+  </a>
+
+</div>
+
+<footer>
+  <p>© 2026 BingoSocial <span class="dot">·</span> Jeremy Triani <span class="dot">·</span> Australia</p>
+</footer>
+
+</body>
+</html>
